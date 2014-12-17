@@ -138,7 +138,7 @@ var pullout = function (params) {
 			'<code id="' + options.codeId + i + '" style="' + style + '" ' + toggle + selector + '>',
 				thisHtml,
 			'</code>'
-		].join('');
+			].join('');
 
 		return smangObj;
 	};
@@ -154,7 +154,8 @@ var pullout = function (params) {
 		while (!!parent) {
 			if (parent !== document) {
 
-				parentContainer = parent.getAttribute('data-smang-component-container') !== null ? parent : false;
+				var selector = options.appendTo.substring(1, options.appendTo.length - 1);
+				parentContainer = parent.getAttribute(selector) !== null ? parent : false;
 
 				if (parentContainer) {
 					break;
@@ -214,7 +215,7 @@ var pullout = function (params) {
 				'<button id="' + options.toggleId + i + '" ' + selector + style + '>',
 					options.toggleContent,
 				'</button>'
-			].join('');
+				].join('');
 
 			if (!!code.previousElementSibling) {
 				code.previousElementSibling.insertAdjacentHTML('afterbegin', button);
@@ -290,9 +291,3 @@ var pullout = function (params) {
 
 	init();
 };
-
-pullout({
-	appendTo: '[data-pullout-container]',
-	toggle: true,
-	toggleContent: '&lt;/&gt;'
-});

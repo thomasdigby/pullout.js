@@ -271,11 +271,7 @@ function pullout (selector, params) {
 
 		// if toggle code, insert toggle button
 		if (config.options.toggleCode) {
-			if (config.toggle.relativePlacement.length && !!inputCode.previousElementSibling) {
-				inputCode.previousElementSibling.insertAdjacentHTML(config.toggle.insertHtml, toggleStr);
-			} else {
-				inputCode.insertAdjacentHTML(config.toggle.insertHtml, toggleStr);
-			}
+			inputCode.insertAdjacentHTML(config.toggle.insertHtml, toggleStr);
 		}
 		// insert code snippet
 		inputCode.insertAdjacentHTML(config.output.insertHtml, codeStr);
@@ -287,7 +283,6 @@ function pullout (selector, params) {
 		// build code element and write default style
 		var codeElem = document.createElement('code'),
 			codeStyle = [
-				'display: block;',
 				'overflow: auto;',
 				'padding: 15px 18px;',
 				'tab-size: 4;',
@@ -321,7 +316,7 @@ function pullout (selector, params) {
 		toggleElem.setAttributeNode(jsHook);
 		toggleElem.setAttribute('id', config.toggle.idPrefix + i);
 		toggleElem.setAttribute('class', config.toggle.selector);
-		toggleElem.innerText = config.toggle.contentOpen;
+		toggleElem.innerHTML = config.toggle.contentOpen;
 
 		return toggleElem;
 	};

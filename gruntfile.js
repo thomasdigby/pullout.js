@@ -4,50 +4,67 @@ module.exports = function (grunt) {
 	// Load plugins
 	require('load-grunt-tasks')(grunt);
 
+
 	// ---------- Project configuration
 	grunt.initConfig({
 
-		// Global
-		pkg: grunt.file.readJSON('package.json'),
-		banner: '/* <%= pkg.name %> / <%= pkg.author.name %> on behalf of MSL Group / <%= grunt.template.today("yyyy-mm-dd") %> */\n',
 
-		// Constant
+		//	Settings
+		//-----------------------------------
+		pkg: grunt.file.readJSON('package.json'),
+		banner: '/*\n' +
+					'\t<%= pkg.name %> v<%= pkg.version %>\n' +
+					'\tBuild: <%= pkg.author.name %>\n' +
+					'\tDate: <%= grunt.template.today("dd/mm/yyyy") %>\n' +
+				'*/\n',
+
+
+		//	Watch
+		//-----------------------------------
+
+		//	Watch changes to client folders within css/ and js/,
+		//	files within core/ or packages/ should not be updated
 		watch: {
-			all: {
+			js: {
 				files: [
-					'gruntfile.js',
 					'src/pullout.js'
 				],
-				tasks: ['default']
+				tasks: ['js']
 			}
 		},
 
-		// Js
+
+		//	JS
+		//-----------------------------------
+
+		//	Hint .js files according to .jshintrc
 		jshint: {
-			all: ['src/pullout.js'],
+			all: [
+				'src/pullout.js'
+			],
 			options: {
-				camelcase: true,
-				curly: true,
-				eqeqeq: true,
-				freeze: true,
-				indent: 4,
-				lastsemic: true,
-				latedef: true,
-				nonew: true,
-				plusplus: false,
-				strict: false,
-				unused: false,
-				globals: {
-					jQuery: true
-				}
+				jshintrc: '.jshintrc',
+				force: true
 			}
 		},
-		uglify: {
+
+		//	Test javascript writing conventions according to .jscs.json
+		jscs: {
+			src: [
+				'src/pullout.js'
+			],
 			options: {
-				banner: '<%= banner %>',
-				warnings: false
-			},
+				config: '.jscs.json',
+				force: true
+			}
+		},
+
+		//	Minify & obfuscate .js files
+		uglify: {
 			build: {
+				options: {
+					banner: '<%= banner %>'
+				},
 				files: {
 					'dist/pullout.min.js': ['src/pullout.js']
 				}
@@ -59,5 +76,8 @@ module.exports = function (grunt) {
 	// ---------- Tasks
 
 	// Default
-	grunt.registerTask('default', ['jshint', 'uglify']);
+	grunt.registerTask('default', []);
+
+	// JS
+	grunt.registerTask('js', ['jshint', 'jscs', 'uglify']);
 };

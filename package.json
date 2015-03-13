@@ -1,9 +1,8 @@
 ﻿{
 	"name": "pullout.js",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Inline code examples",
 	"homepage": "https://github.com/thomasdigby/pullout.js.git",
-	"repository": "https://github.com/thomasdigby/pullout.js.git",
 	"author": {
 		"name": "Thomas Digby",
 		"email": "thomasdigby1@gmail.com",
@@ -14,6 +13,7 @@
 		"grunt-contrib-jshint": "^0.10.0",
 		"grunt-contrib-uglify": "^0.6.0",
 		"grunt-contrib-watch": "^0.6.1",
+		"grunt-jscs": "^1.0.0",
 		"load-grunt-tasks": "^1.0.0"
 	},
 	"license": "MIT"
